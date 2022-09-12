@@ -1,0 +1,40 @@
+<html>
+<head>
+<style>
+#box
+{
+height:600px;
+width:600px;
+background:aqua;
+color:maroon;
+text-align:center;
+line-height:600px;
+font-size:60px;
+margin:100px auto;
+font-family:impact;
+animation-name:techpile;
+animation-duration:1s;
+animation-iteration-count:infinite;
+animation-direction:alternate-reverse;
+animation-delay:5s;
+}
+@keyframes techpile
+{
+from{
+background:red;
+color:aqua;
+transform:rotate(0deg);
+}
+to{
+background:lightgreen;
+color:yellow;
+transform:rotate(300deg);
+border-radius:50%;
+}
+}
+</style>
+</head>
+<body>
+<div id="box">TECHPILE TECHNOLOGY</div>
+</body>
+</html>
