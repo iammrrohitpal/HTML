@@ -1,0 +1,100 @@
+<?php
+session_start();
+include "header.php";
+$pend_url = "https://crm.outrightcrm.com/index.php?entryPoint=get_content&type=all_pending_content&outright_token=abcd$356";
+$param = array(
+    'outright_token' => 'abcd$356'
+);
+$get_data = outright_api($pend_url, 'GET', $param);
+$data_arr = json_decode(json_encode($get_data), true);
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pending Content List Views</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+</head>
+</head>
+<body>
+<div class="">
+<div class="dataTables_length"></div>
+<div class="dataTables_filter"></div>
+
+    <table cellpadding="5" cellspacing="5"  border="5" width="80%" class="table table-fluid" id="myTable">
+    <thead>
+   <tr><th colspan="20" ><center>Pending Content List Views</center></th></tr>
+        
+    <tr><th>Date</th><th>Assigend To</th><th>Start Date</th><th>End Date</th><th>Drive URL</th><th>Word count</th><th>Description</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+    <?php
+      foreach($data_arr as $value){
+  echo '<hr/>result';
+  echo '<pre>';
+  print_r( $value );
+  echo '</pre>';
+  echo '</hr>';
+
+
+                echo "</td><td>";
+                echo date('d-m-Y',strtotime($value['date_entered']));
+                echo "</td><td>";
+                echo $value['employee_c'];
+                echo "</td><td>";
+                echo $value['start_date'];
+                echo "</td><td>";
+                echo $value['end_date'];
+                echo "</td><td>";
+                print_r($value['drive_url']);
+                echo "</td><td>";
+                print_r($value['word_count']);
+                echo "</td><td>";
+                print_r($value['description']);
+                echo "</td><td>";
+                print_r($value['status']);
+                echo "</td></tr>";
+            }
+        
+    ?>
+    </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+    </script>
+</body>
+</html>
+<style>
+    .dataTables_length {
+    margin: auto;
+    margin-left: 205px;
+}
+div#myTable_filter {
+    margin-right: 201px;
+}
+div#myTable_info {
+    margin-left: 194px;
+}
+div#myTable_paginate {
+    margin-right: 177px;
+}
+
+</style>
